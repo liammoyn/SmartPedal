@@ -13,7 +13,7 @@ const TuneGroup = (props) => {
         {selectedEffect.value === null ? (
           <View />
         ) : (
-          <View>
+          <View style={styles.slidersContainer}>
             <TuneSlider />
             <TuneSlider />
           </View>
@@ -23,6 +23,10 @@ const TuneGroup = (props) => {
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  slidersContainer: {
+
+  },
+});
 
 export default TuneGroup;

@@ -34,6 +34,7 @@ const App: () => React$Node = () => {
           <View style={styles.buttonBar}>
             <View style={styles.revertButtonContainer}>
               <Button
+                style={styles.button}
                 color="#fff"
                 onPress={buttonPress}
                 title="Revert Changes"
@@ -41,6 +42,7 @@ const App: () => React$Node = () => {
             </View>
             <View style={styles.applyButtonContainer}>
               <Button
+                style={styles.button}
                 color="#fff"
                 onPress={buttonPress}
                 title="Apply Changes"
@@ -102,6 +104,9 @@ const styles = StyleSheet.create({
   revertButtonContainer: {
     backgroundColor: '#C11300',
     borderRadius: 4,
+  },
+  button: {
+    padding: 4,
   },
   effectsContainer: {
     borderWidth: 1,
