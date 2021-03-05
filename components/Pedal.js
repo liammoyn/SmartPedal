@@ -7,17 +7,23 @@ import {
   TouchableWithoutFeedback,
   Button,
 } from 'react-native';
+import {pedalPropTypes} from '../propTypes/propTypes';
 import EffectGroup from './EffectGroup';
 
 const Pedal = (props) => {
-  const pedalNumber = props.pedalNumber;
+  const {pedalNumber, availableEffects, data, updateData} = props;
 
   const [expanded, setExpanded] = useState(false);
   const [icon, setIcon] = useState(icons.up);
 
-  const [selectedEffect, setSelectedEffect] = useState(defaultEffect);
   const [useAdditionalEffect, setUseAdditionalEffect] = useState(false);
-  const [additionalEffect, setAdditionalEffect] = useState(defaultEffect);
+
+  // TODO: Somehow have to (maybe) set useAdditionalEffect when revert changes is clicked
+  useEffect(() => {
+    if (data.mainEffect === null) {
+      setUseAdditionalEffect(false);
+    }
+  }, [data]);
 
   useEffect(() => {
     if (expanded) {
@@ -36,13 +42,18 @@ const Pedal = (props) => {
   };
 
   const updateEffect = (value, isPrimaryEffect) => {
-    const maybeSelectedItem = items.find((i) => i.value === value);
-    const selectedItem = maybeSelectedItem ? maybeSelectedItem : defaultEffect;
-
-    if (isPrimaryEffect) {
-      setSelectedEffect(selectedItem);
+    // If getting rid of primary event, clear chained effect too
+    if (isPrimaryEffect && value === null) {
+      updateData({
+        mainEffect: null,
+        chainedEffect: null,
+      });
     } else {
-      setAdditionalEffect(selectedItem);
+      const effectTypeLabel = isPrimaryEffect ? 'mainEffect' : 'chainedEffect';
+      updateData({
+        ...data,
+        [effectTypeLabel]: value,
+      });
     }
   };
 
@@ -57,11 +68,11 @@ const Pedal = (props) => {
         </View>
         <EffectGroup
           expanded={expanded}
-          selectedEffect={selectedEffect}
-          onEffectChange={(value) => updateEffect(value, true)}
+          selectedEffect={data.mainEffect}
+          updateEffect={(value) => updateEffect(value, true)}
           defaultEffect={defaultEffect}
-          eligibleEffects={items}>
-          {selectedEffect !== defaultEffect && !useAdditionalEffect && (
+          eligibleEffects={availableEffects}>
+          {data.mainEffect !== null && !useAdditionalEffect && (
             <View style={styles.additionalEffectButton}>
               <Button
                 color="#000"
@@ -74,10 +85,10 @@ const Pedal = (props) => {
         {useAdditionalEffect && (
           <EffectGroup
             expanded={expanded}
-            selectedEffect={additionalEffect}
-            onEffectChange={(value) => updateEffect(value, false)}
+            selectedEffect={data.chainedEffect}
+            updateEffect={(value) => updateEffect(value, false)}
             defaultEffect={defaultEffect}
-            eligibleEffects={items}>
+            eligibleEffects={availableEffects}>
             {useAdditionalEffect && (
               <View style={styles.additionalEffectButton}>
                 <Button
@@ -141,5 +152,7 @@ const styles = StyleSheet.create({
     width: 225,
   },
 });
+
+Pedal.propTypes = pedalPropTypes;
 
 export default Pedal;

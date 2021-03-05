@@ -1,27 +1,34 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
-import React from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-  Button,
-} from 'react-native';
+import React, {useState} from 'react';
+import {StyleSheet, ScrollView, View, Text, Button} from 'react-native';
+import _ from 'lodash';
 import Pedal from './Pedal';
 
 const Content = () => {
-  const buttonPress = () => {
-    alert('You tapped the button!');
+  const [lastSendData, setLastSentData] = useState(defaultPedalsData);
+  const [data, setData] = useState(defaultPedalsData);
+  const [dataChanged, setDataChanged] = useState(false);
+
+  const updatePedalState = (newPedalState, pedalName) => {
+    const updatedData = {
+      ...data,
+      [pedalName]: newPedalState,
+    };
+    setDataChanged(!_.isEqual(updatedData, lastSendData));
+    setData(updatedData);
   };
+
+  const revertChanges = () => {
+    setData(lastSendData);
+    setDataChanged(false);
+  };
+
+  const applyChanges = () => {
+    // TODO: Send "data" in an http request
+    setLastSentData(data);
+    setDataChanged(false);
+  };
+
+  // TODO: Enforce don't sandwich analog/digital effects
 
   return (
     <>
@@ -32,32 +39,66 @@ const Content = () => {
         <View style={styles.buttonBar}>
           <View style={styles.revertButtonContainer}>
             <Button
+              disabled={!dataChanged}
               style={styles.button}
               color="#fff"
-              onPress={buttonPress}
+              onPress={revertChanges}
               title="Revert Changes"
             />
           </View>
           <View style={styles.applyButtonContainer}>
             <Button
+              disabled={!dataChanged}
               style={styles.button}
               color="#fff"
-              onPress={buttonPress}
+              onPress={applyChanges}
               title="Apply Changes"
             />
           </View>
         </View>
         <View style={styles.effectsContainer}>
           <ScrollView>
-            <Pedal pedalNumber={1} />
-            <Pedal pedalNumber={2} />
-            <Pedal pedalNumber={3} />
+            <Pedal
+              pedalNumber={1}
+              availableEffects={allEffects}
+              data={data.pedal1}
+              updateData={(d) => updatePedalState(d, 'pedal1')}
+            />
+            <Pedal
+              pedalNumber={2}
+              availableEffects={allEffects}
+              data={data.pedal2}
+              updateData={(d) => updatePedalState(d, 'pedal2')}
+            />
+            <Pedal
+              pedalNumber={3}
+              availableEffects={allEffects}
+              data={data.pedal3}
+              updateData={(d) => updatePedalState(d, 'pedal3')}
+            />
           </ScrollView>
         </View>
       </View>
     </>
   );
 };
+
+const defaultPedalsData = {
+  pedal1: {
+    mainEffect: null,
+    chainedEffect: null,
+  },
+  pedal2: {
+    mainEffect: null,
+    chainedEffect: null,
+  },
+  pedal3: {
+    mainEffect: null,
+    chainedEffect: null,
+  },
+};
+
+const allEffects = require('../effects/allEffects.json');
 
 const styles = StyleSheet.create({
   pageContainer: {

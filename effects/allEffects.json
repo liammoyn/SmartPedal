@@ -1,0 +1,66 @@
+[
+  {
+    "label": "Reverb",
+    "value": 1,
+    "tuners": [
+      {
+        "label": "Volume",
+        "minValue": 0,
+        "maxValue": 100
+      },
+      {
+        "label": "Stickiness",
+        "minValue": 0,
+        "maxValue": 100
+      }
+    ]
+  },
+  {
+    "label": "Echo",
+    "value": 2,
+    "tuners": [
+      {
+        "label": "Volume",
+        "minValue": 0,
+        "maxValue": 100
+      },
+      {
+        "label": "Protrusion",
+        "minValue": 0,
+        "maxValue": 50
+      }
+    ]
+  },
+  {
+    "label": "Overdrive",
+    "value": 3,
+    "tuners": [
+      {
+        "label": "Driviness",
+        "minValue": 0,
+        "maxValue": 100
+      },
+      {
+        "label": "Overocity",
+        "minValue": 0,
+        "maxValue": 100
+      },
+      {
+        "label": "Slapacity",
+        "minValue": 0,
+        "maxValue": 10
+      }
+    ]
+  },
+  {
+    "label": "Analog Overdrive",
+    "value": 4,
+    "tuners": [
+      {
+        "label": "Power",
+        "minValue": 0,
+        "maxValue": 100
+      }
+    ]
+  }
+]

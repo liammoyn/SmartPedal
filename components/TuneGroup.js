@@ -1,16 +1,15 @@
 import React from 'react';
-import {
-  StyleSheet,
-  View,
-} from 'react-native';
+import {StyleSheet, View} from 'react-native';
+import {tuneGroupPropTypes} from '../propTypes/propTypes';
 import TuneSlider from './TuneSlider';
 
 const TuneGroup = (props) => {
-  const selectedEffect = props.selectedEffect;
+  // TODO: Need to get the effect definition not just effect instance
+  const {selectedEffect, onTunerChange} = props;
   return (
     <>
       <View>
-        {selectedEffect.value === null ? (
+        {selectedEffect === null ? (
           <View />
         ) : (
           <View style={styles.slidersContainer}>
@@ -24,9 +23,9 @@ const TuneGroup = (props) => {
 };
 
 const styles = StyleSheet.create({
-  slidersContainer: {
-
-  },
+  slidersContainer: {},
 });
+
+TuneGroup.propTypes = tuneGroupPropTypes;
 
 export default TuneGroup;

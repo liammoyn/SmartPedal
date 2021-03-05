@@ -1,13 +1,14 @@
 import React, {useState, useEffect} from 'react';
-import {StyleSheet, View, Text, Image, Animated, Button} from 'react-native';
+import {StyleSheet, View, Text, Image, Animated} from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
+import {effectGroupPropTypes} from '../propTypes/propTypes';
 import TuneGroup from './TuneGroup';
 
 const EffectGroup = (props) => {
   const {
     expanded,
     selectedEffect,
-    onEffectChange,
+    updateEffect,
     defaultEffect,
     eligibleEffects,
   } = props;
@@ -47,14 +48,49 @@ const EffectGroup = (props) => {
 
   const defineTopHeight = (event) => {
     const height = event.nativeEvent.layout.height + 10;
-    // This only works because the top height is set once and then not set again
-    // animation.setValue(height);
     setTopHeight(height);
   };
 
   const defineBottomHeight = (event) => {
     const height = event.nativeEvent.layout.height;
     setBottomHeight(height);
+  };
+
+  const effectDefinitionToInstance = (definitionEffect) => {
+    return {
+      label: definitionEffect.label,
+      id: definitionEffect.value,
+      tuners: Object.fromEntries(
+        definitionEffect.tuners.map((tunerDefinition) => {
+          return [tunerDefinition.label, tunerDefinition.minValue]; // TODO: This don't work when changing tuner
+        }),
+      ),
+    };
+  };
+
+  // Value is a effectDefinitionPropType
+  // updateEffect takes a effectInstancePropType
+  const onEffectChange = (id) => {
+    const maybeNewSelectedEffect = eligibleEffects.find((e) => e.value === id);
+    const newSelectedEffect =
+      maybeNewSelectedEffect === undefined
+        ? null
+        : effectDefinitionToInstance(maybeNewSelectedEffect);
+    updateEffect(newSelectedEffect);
+  };
+
+  const onTunerChange = (value) => {
+    const label = ''; // TODO set this from value
+    const amount = 0;
+    const newTuners = {
+      ...selectedEffect.tuners,
+      [label]: amount,
+    };
+    const newEffect = {
+      ...selectedEffect,
+      tuners: newTuners,
+    };
+    updateEffect(newEffect);
   };
 
   return (
@@ -73,7 +109,7 @@ const EffectGroup = (props) => {
               <RNPickerSelect
                 style={pickerSelectStyles}
                 onValueChange={onEffectChange}
-                value={selectedEffect.value}
+                value={selectedEffect?.id}
                 placeholder={defaultEffect}
                 items={eligibleEffects}
                 Icon={() => {
@@ -89,16 +125,21 @@ const EffectGroup = (props) => {
               <Text
                 style={{
                   ...styles.effectText,
-                  color: selectedEffect === defaultEffect ? '#c7c7cd' : 'black',
+                  color: selectedEffect === null ? '#c7c7cd' : 'black',
                 }}>
-                {selectedEffect.label}
+                {selectedEffect === null
+                  ? defaultEffect.label
+                  : selectedEffect.label}
               </Text>
             )}
           </Animated.View>
         </View>
         <View style={styles.bottomContent} onLayout={defineBottomHeight}>
           <View style={styles.tunerGroup}>
-            <TuneGroup selectedEffect={selectedEffect} />
+            <TuneGroup
+              selectedEffect={selectedEffect}
+              onTunerChange={onTunerChange}
+            />
           </View>
           <View>{props.children}</View>
         </View>
@@ -166,5 +207,7 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
 });
+
+EffectGroup.propTypes = effectGroupPropTypes;
 
 export default EffectGroup;
