@@ -1,17 +1,26 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import {StyleSheet, View, Text} from 'react-native';
+import {tuneSliderPropTypes} from '../propTypes/propTypes';
 import Slider from '@react-native-community/slider';
 
-const TuneSlider = () => {
+const TuneSlider = (props) => {
+  const {value, definition, onTunerChange, bottomMargin} = props;
+
+  const onChange = (newValue) => {
+    onTunerChange(newValue, definition.label);
+  };
+
   return (
     <>
-      <View>
-        <Text style={styles.sliderTitle}>Tuner 1</Text>
+      <View style={{marginBottom: bottomMargin}}>
+        <Text style={styles.sliderTitle}>{definition.label}</Text>
         <View style={styles.sliderContainer}>
           <Slider
-            // style={{width: 200, height: 40}}
-            minimumValue={0}
-            maximumValue={100}
+            minimumValue={definition.minValue}
+            maximumValue={definition.maxValue}
+            step={definition.step}
+            value={value}
+            onSlidingComplete={onChange}
             minimumTrackTintColor="#FFFFFF"
             maximumTrackTintColor="#000000"
           />
@@ -33,5 +42,7 @@ const styles = StyleSheet.create({
     paddingLeft: 4,
   },
 });
+
+TuneSlider.propTypes = tuneSliderPropTypes;
 
 export default TuneSlider;

@@ -65,6 +65,7 @@ const EffectGroup = (props) => {
           return [tunerDefinition.label, tunerDefinition.minValue]; // TODO: This don't work when changing tuner
         }),
       ),
+      tunersDefinition: definitionEffect.tuners,
     };
   };
 
@@ -79,12 +80,10 @@ const EffectGroup = (props) => {
     updateEffect(newSelectedEffect);
   };
 
-  const onTunerChange = (value) => {
-    const label = ''; // TODO set this from value
-    const amount = 0;
+  const onTunerChange = (newValue, label) => {
     const newTuners = {
       ...selectedEffect.tuners,
-      [label]: amount,
+      [label]: newValue,
     };
     const newEffect = {
       ...selectedEffect,

@@ -6,18 +6,18 @@ const effectIdPropType = PropTypes.number;
 
 /* Definition Prop Types*/
 
-const tunerDefinitionPropType = PropTypes.arrayOf(
-  PropTypes.shape({
-    label: PropTypes.string.isRequired,
-    minValue: PropTypes.number.isRequired,
-    maxValue: PropTypes.number.isRequired,
-  }),
-);
+const tunerDefinitionPropType = PropTypes.shape({
+  label: PropTypes.string.isRequired,
+  minValue: PropTypes.number.isRequired,
+  maxValue: PropTypes.number.isRequired,
+});
+
+const tunersDefinitionPropType = PropTypes.arrayOf(tunerDefinitionPropType);
 
 const effectDefinitionPropType = PropTypes.shape({
   label: PropTypes.string.isRequired,
   value: effectIdPropType.isRequired,
-  tuners: tunerDefinitionPropType.isRequired,
+  tuners: tunersDefinitionPropType.isRequired,
 });
 
 const availableEffectsPropType = PropTypes.arrayOf(effectDefinitionPropType);
@@ -30,6 +30,7 @@ const effectInstancePropType = PropTypes.shape({
   label: PropTypes.string.isRequired,
   id: effectIdPropType.isRequired,
   tuners: tunerInstancePropType.isRequired,
+  tunersDefinition: tunersDefinitionPropType.isRequired,
 });
 
 const defaultEffectPropType = PropTypes.shape({
@@ -62,4 +63,11 @@ export const effectGroupPropTypes = {
 export const tuneGroupPropTypes = {
   selectedEffect: effectInstancePropType,
   onTunerChange: PropTypes.func.isRequired,
+};
+
+export const tuneSliderPropTypes = {
+  value: PropTypes.number.isRequired,
+  definition: tunerDefinitionPropType.isRequired,
+  onTunerChange: PropTypes.func.isRequired,
+  bottomMargin: PropTypes.number.isRequired,
 };
