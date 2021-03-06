@@ -22,6 +22,8 @@ const Pedal = (props) => {
   useEffect(() => {
     if (data.mainEffect === null) {
       setUseAdditionalEffect(false);
+    } else if (data.chainedEffect !== null) {
+      setUseAdditionalEffect(true);
     }
   }, [data]);
 
@@ -38,7 +40,11 @@ const Pedal = (props) => {
   };
 
   const toggleAdditionalEffect = () => {
-    setUseAdditionalEffect(!useAdditionalEffect);
+    const newUseAdditionalEffect = !useAdditionalEffect;
+    if (!newUseAdditionalEffect) {
+      updateEffect(null, false);
+    }
+    setUseAdditionalEffect(newUseAdditionalEffect);
   };
 
   const updateEffect = (value, isPrimaryEffect) => {
