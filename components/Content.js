@@ -1,12 +1,24 @@
 import React, {useState} from 'react';
-import {StyleSheet, ScrollView, View, Text, Button} from 'react-native';
+import {
+  StyleSheet,
+  ScrollView,
+  View,
+  Text,
+  Button,
+  ActivityIndicator, Image, TouchableWithoutFeedback,
+} from 'react-native';
 import _ from 'lodash';
 import Pedal from './Pedal';
+import config from '../resources/config';
 
 const Content = () => {
   const [lastSendData, setLastSentData] = useState(defaultPedalsData);
   const [data, setData] = useState(defaultPedalsData);
   const [dataChanged, setDataChanged] = useState(false);
+
+  const [sentData, setSentData] = useState(false);
+  const [sendingData, setSendingData] = useState(false);
+  const [apiErrorMessage, setApiErrorMessage] = useState('');
 
   const updatePedalState = (newPedalState, pedalName) => {
     const updatedData = {
@@ -24,8 +36,34 @@ const Content = () => {
 
   const applyChanges = () => {
     // TODO: Send "data" in an http request
-    setLastSentData(data);
-    setDataChanged(false);
+    setSendingData(true);
+    setSentData(false);
+    const pedalURL = config.serverUrl;
+    fetch(pedalURL, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => {
+        if (response.ok) {
+          setApiErrorMessage('');
+          setSentData(true);
+        } else {
+          setApiErrorMessage('Error: ' + response.status);
+        }
+      })
+      .catch((error) => {
+        setApiErrorMessage('Error: ' + error);
+        console.error(error);
+      })
+      .finally(() => {
+        setSendingData(false);
+        setLastSentData(data);
+        setDataChanged(false);
+      });
   };
 
   // TODO: Enforce don't sandwich analog/digital effects
@@ -39,22 +77,35 @@ const Content = () => {
         <View style={styles.buttonBar}>
           <View style={styles.revertButtonContainer}>
             <Button
-              disabled={!dataChanged}
+              disabled={!dataChanged || sendingData}
               style={styles.button}
               color="#fff"
               onPress={revertChanges}
               title="Revert Changes"
             />
           </View>
+          <View>
+            {sendingData && (
+              <ActivityIndicator size="small" color="#0000ff" />
+            )}
+            {!sendingData && sentData && !dataChanged && (
+              <Image source={checkmarkIcon} style={styles.checkmarkImage} />
+            )}
+          </View>
           <View style={styles.applyButtonContainer}>
             <Button
-              disabled={!dataChanged}
+              disabled={!dataChanged || sendingData}
               style={styles.button}
               color="#fff"
               onPress={applyChanges}
               title="Apply Changes"
             />
           </View>
+        </View>
+        <View style={styles.errorBar}>
+          {apiErrorMessage !== '' && (
+            <Text style={styles.errorText}>{apiErrorMessage}</Text>
+          )}
         </View>
         <View style={styles.effectsContainer}>
           <ScrollView>
@@ -98,7 +149,8 @@ const defaultPedalsData = {
   },
 };
 
-const allEffects = require('../effects/allEffects.json');
+const allEffects = require('../resources/effects/allEffects.json');
+const checkmarkIcon = require('../resources/images/checkmark.png');
 
 const styles = StyleSheet.create({
   pageContainer: {
@@ -145,6 +197,23 @@ const styles = StyleSheet.create({
   },
   button: {
     padding: 4,
+  },
+  errorBar: {
+    backgroundColor: 'white',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    flexGrow: 0,
+    flexShrink: 0,
+    flexBasis: 'auto',
+  },
+  errorText: {
+    color: 'red',
+    fontWeight: 'bold',
+  },
+  checkmarkImage: {
+    height: 30,
+    width: 30,
   },
   effectsContainer: {
     borderWidth: 1,

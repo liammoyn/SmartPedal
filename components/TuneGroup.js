@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
-import {tuneGroupPropTypes} from '../propTypes/propTypes';
+import {tuneGroupPropTypes} from '../resources/propTypes/propTypes';
 import TuneSlider from './TuneSlider';
 
 const TuneGroup = (props) => {

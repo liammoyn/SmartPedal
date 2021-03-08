@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {StyleSheet, View, Text, Image, Animated} from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
-import {effectGroupPropTypes} from '../propTypes/propTypes';
+import {effectGroupPropTypes} from '../resources/propTypes/propTypes';
 import TuneGroup from './TuneGroup';
 
 const EffectGroup = (props) => {
@@ -148,7 +148,7 @@ const EffectGroup = (props) => {
 };
 
 const icons = {
-  ellipsis: require('../images/ellipsis.png'),
+  ellipsis: require('../resources/images/ellipsis.png'),
 };
 
 const pickerSelectStyles = StyleSheet.create({

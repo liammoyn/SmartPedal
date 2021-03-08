@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, View, Text} from 'react-native';
-import {tuneSliderPropTypes} from '../propTypes/propTypes';
+import {tuneSliderPropTypes} from '../resources/propTypes/propTypes';
 import Slider from '@react-native-community/slider';
 
 const TuneSlider = (props) => {

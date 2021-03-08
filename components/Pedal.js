@@ -7,7 +7,7 @@ import {
   TouchableWithoutFeedback,
   Button,
 } from 'react-native';
-import {pedalPropTypes} from '../propTypes/propTypes';
+import {pedalPropTypes} from '../resources/propTypes/propTypes';
 import EffectGroup from './EffectGroup';
 
 const Pedal = (props) => {
@@ -122,8 +122,8 @@ const items = [
 ];
 
 const icons = {
-  up: require('../images/expand-arrow-up.png'),
-  down: require('../images/expand-arrow-down.png'),
+  up: require('../resources/images/expand-arrow-up.png'),
+  down: require('../resources/images/expand-arrow-down.png'),
 };
 
 const styles = StyleSheet.create({
