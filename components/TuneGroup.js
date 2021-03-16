@@ -4,7 +4,6 @@ import {tuneGroupPropTypes} from '../resources/propTypes/propTypes';
 import TuneSlider from './TuneSlider';
 
 const TuneGroup = (props) => {
-  // TODO: Need to get the effect definition not just effect instance
   const {selectedEffect, onTunerChange} = props;
 
   return (
