@@ -1,0 +1,14 @@
+{
+  "pedal1": {
+    "mainEffect": null,
+    "chainedEffect": null
+  },
+  "pedal2": {
+    "mainEffect": null,
+    "chainedEffect": null
+  },
+  "pedal3": {
+    "mainEffect": null,
+    "chainedEffect": null
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "pedal1": {
+    "mainEffect": {
+      "label": "Reverb",
+      "id": 1,
+      "tuners": {
+        "Volume": 20,
+        "Stickiness": 40
+      }
+    },
+    "chainedEffect": {
+      "label": "Overdrive",
+      "id": 3,
+      "tuners": {
+        "Driviness": 100,
+        "Overocity": 0,
+        "Slapacity": 5.5
+      }
+    }
+  },
+  "pedal2": {
+    "mainEffect": {
+      "label": "Echo",
+      "id": 2,
+      "tuners": {
+        "Volume": 98,
+        "Protrusion": 35
+      }
+    },
+    "chainedEffect": null
+  },
+  "pedal3": {
+    "mainEffect": {
+      "label": "Analog Overdrive",
+      "id": 4,
+      "tuners": {
+        "Power": 10
+      }
+    },
+    "chainedEffect": {
+      "label": "Reverb",
+      "id": 1,
+      "tuners": {
+        "Volume": 1,
+        "Stickiness": 90
+      }
+    }
+  }
+}

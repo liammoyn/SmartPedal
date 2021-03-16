@@ -1,0 +1,21 @@
+{
+  "pedal1": {
+    "mainEffect": {
+      "label": "Reverb",
+      "id": 1,
+      "tuners": {
+        "Volume": 20,
+        "Stickiness": 40
+      }
+    },
+    "chainedEffect": null
+  },
+  "pedal2": {
+    "mainEffect": null,
+    "chainedEffect": null
+  },
+  "pedal3": {
+    "mainEffect": null,
+    "chainedEffect": null
+  }
+}

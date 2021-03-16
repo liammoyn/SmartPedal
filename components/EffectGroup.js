@@ -62,7 +62,7 @@ const EffectGroup = (props) => {
       id: definitionEffect.value,
       tuners: Object.fromEntries(
         definitionEffect.tuners.map((tunerDefinition) => {
-          return [tunerDefinition.label, tunerDefinition.minValue]; // TODO: This don't work when changing tuner
+          return [tunerDefinition.label, tunerDefinition.minValue];
         }),
       ),
       tunersDefinition: definitionEffect.tuners,

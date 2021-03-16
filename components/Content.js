@@ -35,7 +35,6 @@ const Content = () => {
   };
 
   const applyChanges = () => {
-    // TODO: Send "data" in an http request
     setSendingData(true);
     setSentData(false);
     const pedalURL = config.serverUrl;

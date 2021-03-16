@@ -1,0 +1,29 @@
+{
+  "pedal1": {
+    "mainEffect": {
+      "label": "Reverb",
+      "id": 1,
+      "tuners": {
+        "Volume": 20,
+        "Stickiness": 40
+      }
+    },
+    "chainedEffect": {
+      "label": "Overdrive",
+      "id": 3,
+      "tuners": {
+        "Driviness": 100,
+        "Overocity": 0,
+        "Slapacity": 5.5
+      }
+    }
+  },
+  "pedal2": {
+    "mainEffect": null,
+    "chainedEffect": null
+  },
+  "pedal3": {
+    "mainEffect": null,
+    "chainedEffect": null
+  }
+}
