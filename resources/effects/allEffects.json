@@ -14,7 +14,8 @@
         "label": "Length",
         "minValue": 0,
         "maxValue": 1,
-        "step": 0.1
+        "step": 0.1,
+        "unit": "#v seconds"
       }
     ]
   },

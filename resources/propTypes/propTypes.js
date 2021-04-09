@@ -10,6 +10,7 @@ const tunerDefinitionPropType = PropTypes.shape({
   label: PropTypes.string.isRequired,
   minValue: PropTypes.number.isRequired,
   maxValue: PropTypes.number.isRequired,
+  unit: PropTypes.string,
 });
 
 const tunersDefinitionPropType = PropTypes.arrayOf(tunerDefinitionPropType);

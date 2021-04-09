@@ -25,6 +25,12 @@ const TuneSlider = (props) => {
             maximumTrackTintColor="#000000"
           />
         </View>
+        {definition.unit && (
+          <Text style={styles.sliderUnits}>
+            {definition.unit.replace(/#v/, value.toFixed(1))}
+          </Text>
+        )}
+        <Text />
       </View>
     </>
   );
@@ -40,6 +46,9 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     paddingRight: 4,
     paddingLeft: 4,
+  },
+  sliderUnits: {
+    textAlign: 'right',
   },
 });
 
