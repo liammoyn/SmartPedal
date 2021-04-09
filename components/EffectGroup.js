@@ -60,6 +60,7 @@ const EffectGroup = (props) => {
     return {
       label: definitionEffect.label,
       id: definitionEffect.value,
+      isDigital: definitionEffect.isDigital,
       tuners: Object.fromEntries(
         definitionEffect.tuners.map((tunerDefinition) => {
           return [tunerDefinition.label, tunerDefinition.minValue];

@@ -65,8 +65,6 @@ const Content = () => {
       });
   };
 
-  // TODO: Enforce don't sandwich analog/digital effects
-
   return (
     <>
       <View style={styles.pageContainer}>

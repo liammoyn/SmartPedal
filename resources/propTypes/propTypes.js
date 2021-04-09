@@ -17,6 +17,7 @@ const tunersDefinitionPropType = PropTypes.arrayOf(tunerDefinitionPropType);
 const effectDefinitionPropType = PropTypes.shape({
   label: PropTypes.string.isRequired,
   value: effectIdPropType.isRequired,
+  isDigital: PropTypes.bool.isRequired,
   tuners: tunersDefinitionPropType.isRequired,
 });
 
@@ -29,6 +30,7 @@ const tunerInstancePropType = PropTypes.objectOf(PropTypes.number);
 const effectInstancePropType = PropTypes.shape({
   label: PropTypes.string.isRequired,
   id: effectIdPropType.isRequired,
+  isDigital: PropTypes.bool.isRequired,
   tuners: tunerInstancePropType.isRequired,
   tunersDefinition: tunersDefinitionPropType.isRequired,
 });

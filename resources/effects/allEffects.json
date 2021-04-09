@@ -1,72 +1,71 @@
 [
   {
-    "label": "Reverb",
+    "label": "Echo",
     "value": 1,
+    "isDigital": true,
     "tuners": [
       {
-        "label": "Volume",
+        "label": "Level",
         "minValue": 0,
-        "maxValue": 100,
+        "maxValue": 10,
         "step": 1
       },
       {
-        "label": "Stickiness",
+        "label": "Length",
         "minValue": 0,
-        "maxValue": 100,
-        "step": 1
+        "maxValue": 1,
+        "step": 0.1
       }
     ]
   },
   {
-    "label": "Echo",
+    "label": "Reverb",
     "value": 2,
+    "isDigital": true,
     "tuners": [
       {
-        "label": "Volume",
+        "label": "Level",
         "minValue": 0,
-        "maxValue": 100,
+        "maxValue": 10,
         "step": 1
-      },
-      {
-        "label": "Protrusion",
-        "minValue": 0,
-        "maxValue": 50,
-        "step": 5
       }
     ]
   },
   {
     "label": "Overdrive",
     "value": 3,
+    "isDigital": true,
     "tuners": [
       {
-        "label": "Driviness",
-        "minValue": 0,
-        "maxValue": 100,
-        "step": 1
-      },
-      {
-        "label": "Overocity",
-        "minValue": 0,
-        "maxValue": 100,
-        "step": 1
-      },
-      {
-        "label": "Slapacity",
+        "label": "Level",
         "minValue": 0,
         "maxValue": 10,
-        "step": 0.5
+        "step": 1
       }
     ]
   },
   {
-    "label": "Analog Overdrive",
+    "label": "Wah",
     "value": 4,
+    "isDigital": true,
     "tuners": [
       {
-        "label": "Power",
+        "label": "Level",
         "minValue": 0,
-        "maxValue": 100,
+        "maxValue": 10,
+        "step": 1
+      }
+    ]
+  },
+  {
+    "label": "Blah",
+    "value": 5,
+    "isDigital": false,
+    "tuners": [
+      {
+        "label": "Level",
+        "minValue": 0,
+        "maxValue": 10,
         "step": 1
       }
     ]

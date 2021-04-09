@@ -17,6 +17,7 @@ const Pedal = (props) => {
   const [icon, setIcon] = useState(icons.up);
 
   const [useAdditionalEffect, setUseAdditionalEffect] = useState(false);
+  const [eligibleChainedEffects, setEligibleChainedEffects] = useState([]);
 
   // TODO: Somehow have to (maybe) set useAdditionalEffect when revert changes is clicked
   useEffect(() => {
@@ -26,6 +27,18 @@ const Pedal = (props) => {
       setUseAdditionalEffect(true);
     }
   }, [data]);
+
+  useEffect(() => {
+    if (data.mainEffect?.isDigital) {
+      setEligibleChainedEffects(
+        availableEffects.filter((e) => {
+          return e.isDigital;
+        }),
+      );
+    } else {
+      setEligibleChainedEffects(availableEffects);
+    }
+  }, [availableEffects, data.mainEffect]);
 
   useEffect(() => {
     if (expanded) {
@@ -94,7 +107,7 @@ const Pedal = (props) => {
             selectedEffect={data.chainedEffect}
             updateEffect={(value) => updateEffect(value, false)}
             defaultEffect={defaultEffect}
-            eligibleEffects={availableEffects}>
+            eligibleEffects={eligibleChainedEffects}>
             {useAdditionalEffect && (
               <View style={styles.additionalEffectButton}>
                 <Button
@@ -115,11 +128,6 @@ const defaultEffect = {
   label: 'Select an effect',
   value: null,
 };
-const items = [
-  {label: 'Reverb', value: 'reverb'},
-  {label: 'Echo', value: 'echo'},
-  {label: 'Amplify', value: 'amplify'},
-];
 
 const icons = {
   up: require('../resources/images/expand-arrow-up.png'),
